@@ -1,0 +1,1109 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Pascal Quick Reference</title>
+	<meta name="generator" content="LibreOffice 6.0.6.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2018-10-15T13:19:44.070351993"/>
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<style type="text/css">
+		pre { direction: inherit }
+		pre.western { font-family: monospace, monospace; font-size: 11pt }
+		pre.cjk { font-family: monospace, monospace }
+		pre.ctl { font-family: monospace, monospace }
+		h2.cjk { font-family: "Noto Sans CJK SC Regular" }
+		h2.ctl { font-family: "FreeSans" }
+		h3.western { font-family: "Albany", sans-serif }
+		h3.cjk { font-family: "Noto Sans CJK SC Regular" }
+		h3.ctl { font-family: "FreeSans" }
+		h4.western { font-family: "Albany", sans-serif; font-size: 13pt; font-style: italic }
+		h4.cjk { font-family: "Noto Sans CJK SC Regular"; font-size: 13pt; font-style: italic }
+		h4.ctl { font-family: "FreeSans"; font-size: 13pt; font-style: italic }
+		code { font-family: monospace, monospace }
+		tt { font-family: monospace, monospace }
+	</style>
+</head>
+<body lang="en-US" dir="ltr">
+<h1>Pascal Quick Reference</h1>
+<p>This is a summary of the subset of Pascal that we are learning and
+using in Programming I. 
+</p>
+<p>This is a work in progress. I'll add more language elements as we
+learn them in this class. 
+</p>
+<p>For more information, see the full <a href="https://www.freepascal.org/docs-html/current/ref/ref.html">reference
+guide</a> at the Free Pascal site.</p>
+<h2 class="western">directives</h2>
+<p><tt>{$mode delphi}</tt> 
+</p>
+<p>Enables the Delphi dialect of Free Pascal. This has several
+consequences, some of which are quite important:</p>
+<ul>
+	<li/>
+<p><tt>integer</tt> is <tt>longint</tt> (4 bytes) rather than
+	<tt>smallint</tt> (2 bytes). 
+	</p>
+	<li/>
+<p><tt>string</tt> values are not limited to 255 characters. 
+	</p>
+	<li/>
+<p>Parameters can be preceded by <code>out</code>.</p>
+</ul>
+<p>I recommend that you put this directive at the top of every
+program.</p>
+<pre class="western" style="margin-bottom: 0.2in">{$r+}</pre><p>
+Enable range checking. This has two consequences:</p>
+<ul>
+	<li/>
+<p>On every array access a[i], the runtime checks that the
+	index i is within the bounds of the array a. If it isn't, the
+	program will terminate with an error.</p>
+	<li/>
+<p>On every assignment to a variable whose type is a range
+	(e.g. <code>var x: 5 .. 15</code>), the runtime checks that the
+	value being assigned is in the range. If it isn't, the program will
+	terminate with an error.</p>
+</ul>
+<p>I recommend that you put this directive at the top of every
+program that uses arrays.</p>
+<pre class="western" style="margin-bottom: 0.2in">{$optimization tailrec}</pre><p>
+Enable tail recursion optimization, which tells the Pascal compiler
+to transform tail-recursive functions into iterative code that uses a
+fixed amount of stack space.</p>
+<h2 class="western">comments</h2>
+<p>There are three different syntaxes for comments in a Pascal
+program:</p>
+<pre class="western" style="margin-left: 0.49in">{ 1. this is a comment, and may span multiple lines }
+
+(* 2. this comment can also
+ *    span
+ *    multiple lines *)
+
+// 3. this is a single-line comment</pre><p>
+Comments using syntaxes (1) and (2) may be nested.</p>
+<h2 class="western">identifiers</h2>
+<p><i>Identifiers</i> are the names of variables, constants,
+functions and procedures in a Pascal program. They may contain
+letters, digits and the underscore character ('_'), and may not begin
+with a digit.</p>
+<h2 class="western">types</h2>
+<h3 class="western">boolean</h3>
+<p>A <code>boolean</code> value is either <code>true</code> or <code>false</code>.
+</p>
+<h3 class="western">signed integer types</h3>
+<p>A <i>signed</i> integer can be either positive, zero, or negative.</p>
+<table width="708" cellpadding="0" cellspacing="0" style="page-break-before: auto; page-break-after: auto">
+	<col width="171">
+	<col width="79">
+	<col width="68">
+	<col width="390">
+	<thead>
+		<tr valign="top">
+			<th width="171" style="border: none; padding: 0in">
+				<p align="left">type</p>
+			</th>
+			<th width="79" style="border: none; padding: 0in">
+				<p align="left">size (bytes)</p>
+			</th>
+			<th width="68" style="border: none; padding: 0in">
+				<p align="left">size (bits)</p>
+			</th>
+			<th width="390" style="border: none; padding: 0in">
+				<p align="left">range</p>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr valign="top">
+			<td width="171" style="border: none; padding: 0in">
+				<p><code>shortint</code></p>
+			</td>
+			<td width="79" style="border: none; padding: 0in">
+				<p>1</p>
+			</td>
+			<td width="68" style="border: none; padding: 0in">
+				<p>8</p>
+			</td>
+			<td width="390" style="border: none; padding: 0in">
+				<p>-128 … 127</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="171" style="border: none; padding: 0in">
+				<p><code>smallint</code></p>
+			</td>
+			<td width="79" style="border: none; padding: 0in">
+				<p>2</p>
+			</td>
+			<td width="68" style="border: none; padding: 0in">
+				<p>16</p>
+			</td>
+			<td width="390" style="border: none; padding: 0in">
+				<p>-32,768 .. 32,767</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="171" style="border: none; padding: 0in">
+				<p><code>integer*, longint</code></p>
+			</td>
+			<td width="79" style="border: none; padding: 0in">
+				<p>4</p>
+			</td>
+			<td width="68" style="border: none; padding: 0in">
+				<p>32</p>
+			</td>
+			<td width="390" style="border: none; padding: 0in">
+				<p>-2,147,483,648 .. 2,147,483,647</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="171" style="border: none; padding: 0in">
+				<p><code>int64</code></p>
+			</td>
+			<td width="79" style="border: none; padding: 0in">
+				<p>8</p>
+			</td>
+			<td width="68" style="border: none; padding: 0in">
+				<p>64</p>
+			</td>
+			<td width="390" style="border: none; padding: 0in">
+				<p>-9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p>* - <tt>integer</tt> is <tt>longint</tt> assuming you have
+remembered to enable Delphi mode.</p>
+<p>In most programs you can simply use <code>integer</code> for all
+integer variables.</p>
+<h3 class="western">unsigned integer types</h3>
+<p>An <i>unsigned</i> integer can be zero or positive, but never
+negative.</p>
+<p style="margin-bottom: 0in"><br/>
+
+</p>
+<table width="647" cellpadding="0" cellspacing="0" style="page-break-before: auto; page-break-after: auto">
+	<col width="110">
+	<col width="79">
+	<col width="68">
+	<col width="390">
+	<thead>
+		<tr valign="top">
+			<th width="110" style="border: none; padding: 0in">
+				<p align="left">type</p>
+			</th>
+			<th width="79" style="border: none; padding: 0in">
+				<p align="left">size (bytes)</p>
+			</th>
+			<th width="68" style="border: none; padding: 0in">
+				<p align="left">size (bits)</p>
+			</th>
+			<th width="390" style="border: none; padding: 0in">
+				<p align="left">range</p>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr valign="top">
+			<td width="110" style="border: none; padding: 0in">
+				<p><code>byte</code></p>
+			</td>
+			<td width="79" style="border: none; padding: 0in">
+				<p>1</p>
+			</td>
+			<td width="68" style="border: none; padding: 0in">
+				<p>8</p>
+			</td>
+			<td width="390" style="border: none; padding: 0in">
+				<p>0 .. 255</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="110" style="border: none; padding: 0in">
+				<p><code>word</code></p>
+			</td>
+			<td width="79" style="border: none; padding: 0in">
+				<p>2</p>
+			</td>
+			<td width="68" style="border: none; padding: 0in">
+				<p>16</p>
+			</td>
+			<td width="390" style="border: none; padding: 0in">
+				<p>0 .. 65535</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="110" style="border: none; padding: 0in">
+				<p><code>longword</code></p>
+			</td>
+			<td width="79" style="border: none; padding: 0in">
+				<p>4</p>
+			</td>
+			<td width="68" style="border: none; padding: 0in">
+				<p>32</p>
+			</td>
+			<td width="390" style="border: none; padding: 0in">
+				<p>0 .. 4294967295</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="110" style="border: none; padding: 0in">
+				<p><code>qword</code></p>
+			</td>
+			<td width="79" style="border: none; padding: 0in">
+				<p>8</p>
+			</td>
+			<td width="68" style="border: none; padding: 0in">
+				<p>64</p>
+			</td>
+			<td width="390" style="border: none; padding: 0in">
+				<p>0 .. 18446744073709551615</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<h3 class="western">real types</h3>
+<p>Real types hold floating-point values. These types have a much
+larger range than integer types, but will not be precisely accurate
+when values are very large or small. (The name “real” is a slight
+misnomer since these values can never be irrational.)</p>
+<table cellpadding="2" cellspacing="2">
+	<tr>
+		<th style="border: none; padding: 0in">
+			<p>type</p>
+		</th>
+		<th style="border: none; padding: 0in">
+			<p>size (bytes)</p>
+		</th>
+		<th style="border: none; padding: 0in">
+			<p>significant digits</p>
+		</th>
+		<th style="border: none; padding: 0in">
+			<p>range</p>
+		</th>
+	</tr>
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>single</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>4</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>7-8</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>1.5E-45 ... 3.4E38</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>real*, double</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>8</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>15-16</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>5.0E-324 .. 1.7E308</p>
+		</td>
+	</tr>
+</table>
+<p>* - <tt>real</tt> may be equal to <tt>single</tt> on some
+platforms.</p>
+<p>In most programs you can simply use <code>real</code> for all
+non-integer numbers.</p>
+<h3 class="western">char</h3>
+<p>A <code>char </code>is a single-byte (non-Unicode) character. Any
+ASCII value can fit in a <code>char</code> ; this includes all the
+characters you can type on a standard English-language keyboard.</p>
+<h3 class="western">string</h3>
+<p>A <tt>string</tt> holds single-byte (non-Unicode) characters. It
+may be any length (unless you forgot to enable Delphi mode, in which
+case it will be limited to 255 characters).</p>
+<p>String constants are delimited with single quotes, e.g. <code>'the
+red apple'</code>. To embed a single quote in a string, type it
+twice: <code>'she didn''t get your letter'</code>.</p>
+<p>The <tt>length()</tt> function returns the length of a string.
+<tt>s[i]</tt> retrieves the <tt>i</tt>-th character of string <tt>s</tt>.
+The first character has index 1. 
+</p>
+<p>Strings are mutable: you can update character <tt>i</tt> by
+assigning to <tt>s[i]</tt>. 
+</p>
+<h3 class="western">arrays</h3>
+<p>An <code>array</code> holds an indexed set of values of the same
+type. Arrays come in two forms, static and dynamic.</p>
+<p>A static array holds a fixed number of elements. You can declare a
+static array like this:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  a: array[1..100] of integer;</pre><p>
+The array indices don't need to begin with 1. They can start at 0 or
+any other value:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  b: array[0..49] of boolean;</pre><p>
+You may specify a set of initial values to be stored in a static
+array:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  a: array[1..3] of string = ('down', 'the', 'road');</pre><p>
+A dynamic array holds a variable number of elements and can grow or
+shrink as the program runs. You can declare a dynamic array like
+this:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  a: array of integer;</pre><p>
+Before you can use a dynamic array, you must set its length by
+calling <code>setLength</code>:</p>
+<pre class="western" style="margin-left: 0.49in; margin-bottom: 0.2in">setLength(a, 100);</pre><p>
+Dynamic arrays are always indexed from 0, so after the call above the
+array will hold values with indices from 0 to 99. When growing a
+dynamic array, <code>setLength</code> sets any newly allocated
+elements to zero.</p>
+<p>You can use the syntax <code>a[i]</code> to read from or write to
+a static or dynamic array:</p>
+<pre class="western" style="margin-left: 0.49in">a[44] := 33;
+
+a[44] := a[44] + 1;</pre><h4 class="western">
+multidimensional arrays</h4>
+<p>Both static and dynamic arrays can be multidimensional.</p>
+<p>You can declare a multidimensional static array using either of
+the following syntaxes:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  a: array[1..100][1..20] of integer;
+  b: array[1..100, 1..20] of integer;</pre><p>
+The declarations above are equivalent.</p>
+<p>Here's how to declare a multidimensional dynamic array:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  d: array of array of integer;</pre><p>
+To set the dimensions of such an array, call <code>setLength</code>
+and pass each dimension as a separate parameter:</p>
+<pre class="western" style="margin-left: 0.49in; margin-bottom: 0.2in">setLength(d, 100, 20);</pre><p>
+You can access elements of a multidimensional array using either of
+two syntaxes: <code>a[i][j]</code> or <code>a[i, j]</code>.</p>
+<h4 class="western">open arrays</h4>
+<p>A function or procedure parameter can have an array type with no
+bounds:</p>
+<pre class="western" style="margin-left: 0.79in; margin-bottom: 0.2in">function sum(a: array of integer): integer;</pre><p>
+This looks like a dynamic array type, but in this context this is an
+<b>open array </b><span style="font-weight: normal">parameter</span>.
+You can pass either a static or dynamic array to a function that
+expects an open array.</p>
+<p>Just like dynamic arrays, open arrays are always indexed starting
+from 0, even if their source array has a different indexing base. For
+example:</p>
+<pre class="western" style="margin-left: 0.79in">procedure first(a: array of integer);
+begin
+  writeln('low = ', low(a), ', high = ', high(a), ', first = ', a[0]);
+end;
+
+var
+  a: array[1..5] of integer = (2, 4, 6, 8, 10);
+
+begin
+  first(a);
+  ...</pre><p>
+This program will print</p>
+<pre class="western" style="margin-left: 0.79in; margin-bottom: 0.2in">low = 0, high = 4, first = 2</pre><p>
+You may pass a <b>partial array</b> to an open array parameter. For
+example, in the program above we could call</p>
+<pre class="western" style="margin-left: 0.79in; margin-bottom: 0.2in">first(a[3..5]);</pre><p>
+This will print</p>
+<pre class="western" style="margin-left: 0.79in; margin-bottom: 0.2in">low = 0, high = 2, first = 6</pre><h3 class="western">
+enumerated types</h3>
+<p style="font-variant: normal; font-style: normal">You may define
+enumerated types, which have a fixed number of constant values:</p>
+<pre class="western" style="margin-left: 0.49in">type
+
+  day = (monday, tuesday, wednesday, thursday, friday, saturday, sunday);
+
+var
+  d: day = wednesday;
+  i: integer;</pre><p>
+Enumerated values are stored internally as integers. You can convert
+an enumerated value to or from an integer using a type cast
+expression:</p>
+<pre class="western" style="margin-left: 0.49in">i := integer(d);
+writeln(i);
+d := day(i);</pre><h3 class="western">
+ordinal types</h3>
+<p>Certain types are considered to be <i>ordinal types</i>: these
+include <code>boolean</code>, all integer types, <code>char</code>,
+and enumerated types. Values of ordinal types can be converted
+to/from integers. They can be used</p>
+<ul>
+	<li/>
+<p>with comparison operators such as &lt; and &gt;</p>
+	<li/>
+<p>as array indices</p>
+	<li/>
+<p>in <code>case</code> statements</p>
+	<li/>
+<p>as <code>for</code> loop variables</p>
+	<li/>
+<p>with the <code>in</code> operator</p>
+</ul>
+<h3 class="western">ranges</h3>
+<p>When you declare a variable of any ordinal type, you can specify a
+range of values that it may hold:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  i: 10 .. 15;
+  c: 'a' .. 'z';</pre><p>
+The runtime will check that values are actually in these ranges only
+if you have enabled range checking with the <code>{$r+}</code>
+directive.</p>
+<h3 class="western">records</h3>
+<p>A <i>record</i> is a compound object that is composed of a set of
+fields. Each distinct record type defines the names and types of the
+fields that it contains. For example:</p>
+<pre class="western">type
+  book = record
+    title: string;
+    author: string;
+    pages: integer;
+  end;</pre><p>
+You can access a record's fields using the <code>'.'</code> operator.
+For example:</p>
+<pre class="western">var
+  b: book;
+
+begin
+  b.title := 'war and peace';
+  b.author := 'leo tolstoy';
+  b.pages := 1440;
+  …
+  writeln('title = ', b.title);</pre><p>
+You can initialize a variable of any record type as you declare it:</p>
+<pre class="western">var
+  b: book = (title: 'war and peace'; author: 'leo tolstoy'; pages: 1440);</pre><h3 class="western">
+variant records</h3>
+<p>A <b>variant record </b><span style="font-weight: normal">is a
+record whose field set can vary depending on the value of a </span><b>tag
+field</b> <span style="font-weight: normal">in the record. For
+example:</span></p>
+<pre class="western">type
+  shapeType = (square, rectangle, circle);
+
+  shape = record
+    centerX, centerY: real;
+
+    case kind: shapeType of
+      square: (side: real);
+      rectangle: (length, height: real);
+      circle: (radius: real);
+    end;</pre><p>
+In the example above, <code>kind</code> is the tag field, and has
+type <code>shapeType</code> which is an enumerated type. A tag field
+may alternatively have any ordinal type, such as integer or boolean.</p>
+<p>To use a variant record, simply set its tag field and associated
+field values:</p>
+<pre class="western">var
+  s: shape;
+
+begin
+  s.kind := rectangle;
+  s.length := 5.0;
+  s.height := 3.0;
+  ...</pre><p>
+Code that processes a variant record will often want to use a <code>case</code>
+statement to branch based on its tag field:</p>
+<pre class="western">  case s.kind of
+    square:    area := s.side * s.side;
+    rectangle: area := s.length * s.height;
+    circle:    area := pi * s.radius * s.radius;
+  end;</pre><h3 class="western">
+pointers</h3>
+<p>A <span style="font-variant: normal"><span style="font-style: normal"><b>pointer</b></span></span>
+is an indirect reference to a variable. The type ^T means a pointer
+to type T. For example:</p>
+<pre class="western">var
+  p: ^integer;   // a pointer to an integer</pre><p>
+The @ (“address of”) operator yields a pointer to a variable:</p>
+<pre class="western">var
+  i: integer;
+begin
+
+  i := 7;
+  p := @i;      // now p points to i
+…</pre><p>
+The ^ (“circumflex” or “hat”) operator yields the value that
+a pointer points to:</p>
+<pre class="western">  writeln(p^);  // writes 7
+  p^ := 8;
+  writeln(i);   // writes 8</pre><p>
+You can use the <code>new</code> function to allocate memory
+dynamically. new takes an argument of any pointer type. For example:</p>
+<pre class="western">type
+  suit = (clubs, hearts, diamonds, spades);
+  card = record
+    rank: 2 .. 14;
+    suit: suit;
+  end;
+
+var
+  p: ^card;
+
+begin
+  new(p);   // now p points to a new dynamically allocated card
+  p^.rank := random(13) + 2;
+  p^.suit := suit(random(4));
+  …</pre><p>
+The <code>dispose</code> function deletes memory that was allocated
+with <code>new</code>:</p>
+<pre class="western" style="margin-bottom: 0.2in">  dispose(p);    // free the card</pre><p>
+The special pointer value <code>nil</code> points to nothing. If you
+attempt to access ^p where p is <code>nil</code>, your program will
+crash.</p>
+<p>If you want to pass a pointer to a function or procedure, or
+return a pointer from a function, you must declare a named pointer
+type:</p>
+<pre class="western">type
+  pint = ^integer;    // pointer to integer
+
+function foo(a: ^integer): ^integer;   // will not compile!
+
+function foo(a: pint): pint;           // this is fine</pre><h3 class="western">
+function pointers</h3>
+<p>A <b>function pointer</b> is a value that refers to a function.</p>
+<p>You can declare a function pointer type like this:</p>
+<pre class="western">type
+  intFun = function(a, b: integer): integer</pre><p>
+Here is a function whose signature matches this function pointer
+type:</p>
+<pre class="western">function add(a, b: integer): integer;
+begin
+  add := a + b;
+end;</pre><p>
+Use the @ (“address-of”) operator to get a pointer to a named
+function in your program:</p>
+<pre class="western">var
+  p: intFun;
+begin
+  p := @add;</pre><p>
+You can call a function through a function pointer:</p>
+<pre class="western" style="margin-bottom: 0.2in">  writeln(p(3, 4));  // writes 7</pre><h3 class="western">
+files</h3>
+<p>The <code>text</code> type represents a text file:</p>
+<pre class="western">var
+  novel: text;</pre><p>
+The <code>file</code> type represents a file on disk containing a
+particular type of binary data:</p>
+<pre class="western">var
+  f: file of integer;
+  g: file of real;</pre><p>
+Often a file will hold a compound type:</p>
+<pre class="western">type
+  time = record
+    year, month, day: integer;
+    hour, minute, second: integer;
+  end;
+
+var
+  timestamps: file of time;</pre><p>
+Note, however, that a <code>file</code> cannot contain data of any of
+these types:</p>
+<ul>
+	<li/>
+<p><code>string</code></p>
+	<li/>
+<p>dynamic arrays</p>
+	<li/>
+<p>any compound data type containing the above types</p>
+</ul>
+<p>If you want to store character data in a binary file, you must use
+a fixed-size character array, e.g. an <code>array[1..100] of char</code>.</p>
+<p>For information about the various library functions that operate
+on files (<code>assign</code>, <code>reset</code> and so on), see the
+<a href="https://ksvi.mff.cuni.cz/~dingle/2017/library_reference.html">Run-Time
+Library Quick Reference</a>.</p>
+<h2 class="western">boolean operators</h2>
+<p><tt>not</tt><br/>
+<tt>and</tt><br/>
+<tt>or</tt></p>
+<p>These are useful in <code>if</code> statements: <code>if (x &gt;
+3) and ((y &lt; 0) or (y &gt; 10)) then</code> ...</p>
+<h2 class="western">unary arithmetic operators</h2>
+<table cellpadding="2" cellspacing="2">
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>+</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>identity</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>-</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>negation</p>
+		</td>
+	</tr>
+</table>
+<h2 class="western">binary arithmetic operators</h2>
+<table width="180" cellpadding="0" cellspacing="0">
+	<col width="31">
+	<col width="149">
+	<tr>
+		<td width="31" style="border: none; padding: 0in">
+			<p>+</p>
+		</td>
+		<td width="149" style="border: none; padding: 0in">
+			<p>addition</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="31" style="border: none; padding: 0in">
+			<p>-</p>
+		</td>
+		<td width="149" style="border: none; padding: 0in">
+			<p>subtraction</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="31" style="border: none; padding: 0in">
+			<p>*</p>
+		</td>
+		<td width="149" style="border: none; padding: 0in">
+			<p>multiplication</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="31" style="border: none; padding: 0in">
+			<p>/</p>
+		</td>
+		<td width="149" style="border: none; padding: 0in">
+			<p>floating-point division</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="31" style="border: none; padding: 0in">
+			<p><tt>div</tt></p>
+		</td>
+		<td width="149" style="border: none; padding: 0in">
+			<p>integer division</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="31" style="border: none; padding: 0in">
+			<p><tt>mod</tt></p>
+		</td>
+		<td width="149" style="border: none; padding: 0in">
+			<p>integer remainder</p>
+		</td>
+	</tr>
+</table>
+<p>+, - and * can operate on integers or reals. If both operands are
+integers, these operators will return an integer; otherwise they
+return a real value.</p>
+<p>/ can operate on integers or reals; it always returns a real.</p>
+<p><code>div</code> and <code>mod</code> can operate only on
+integers, and return an integer.</p>
+<p>You can also use + to concatenate two strings. (+ will not
+concatenate a string with a non-string value, unlike in some other
+languages.)</p>
+<h2 class="western">comparison operators</h2>
+<table cellpadding="2" cellspacing="2">
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>=</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>equal</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>&lt;&gt;</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>not equal</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>&lt;</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>less than</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>&gt;</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>greater than</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>&lt;=</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>less than or equal</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border: none; padding: 0in">
+			<p>&gt;=</p>
+		</td>
+		<td style="border: none; padding: 0in">
+			<p>greater than or equal</p>
+		</td>
+	</tr>
+</table>
+<p>These operators can compare any values of any ordinal type, and
+also strings. Strings are compared alphabetically.</p>
+<p>It is not possible to compare values of compound types, such as
+arrays and records.</p>
+<h2 class="western">in operator</h2>
+<p>The <code>in</code> opererator tests whether a value is in a
+range:</p>
+<pre class="western" style="margin-left: 0.49in; margin-bottom: 0.2in">if c in ['A'..'Z'] then ...</pre><p>
+It may be used with values of any ordinal type.</p>
+<h2 class="western">assignment statement</h2>
+<p>The assignment operator := assigns a new value to a variable:</p>
+<pre class="western" style="margin-left: 0.49in; margin-bottom: 0.2in">x := a + b;</pre><p>
+The variable itself may appear on the right-hand side:</p>
+<pre class="western" style="margin-left: 0.49in; margin-bottom: 0.2in">x := x + 1</pre><h2 class="western">
+branching statements</h2>
+<h3 class="western">if</h3>
+<p>The <code>if</code> statement executes one or more statements if a
+condition is true:</p>
+<pre class="western" style="margin-left: 0.49in">if x &gt; 3 then
+  begin
+    y := x;
+    z := x + 1;
+  end;</pre><p>
+If there is only one statement to be executed, you may omit the <code>begin</code>
+and <code>end</code>.</p>
+<p>An <code>if</code> statement may optionally include an <code>else</code>
+clause indicating one or more statements to be executed if the
+condition is false:</p>
+<pre class="western" style="margin-left: 0.49in">if x &gt; 3 then
+  y := x + 1
+else
+  begin
+    z := x + 1;
+    y := x – 1;
+  end;</pre><p>
+Warning: do not put a semicolon before the <tt>else</tt>, or the
+compiler will complain! This is the one place in Pascal where a
+statement must not be followed by a semicolon.</p>
+<h3 class="western"><tt>case</tt></h3>
+<p>A <code>case</code> statement uses a given value (of any ordinal
+type) to choose which of a set of statements to execute:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  c: integer;
+
+...
+  readln(c);
+
+  case c of
+    2..10: writeln(c);
+    11: writeln('jack');
+    12: writeln('queen');
+    13: writeln('king');
+    14:
+      begin
+        writeln('ace');
+        aces := aces + 1;
+      end
+    else
+      writeln('unknown card');
+  end;</pre><p>
+The <code>else</code> clause is optional. If it is not present, and
+the supplied value does not match any case labels, then the entire
+<code>case</code> statement is skipped.</p>
+<p>Note that you must use <code>begin</code>/<code>end</code> to wrap
+multiple statements in any case group except the <code>else</code>
+group, in which <code>begin</code>/<code>end</code> are optional.</p>
+<h3 class="western"><tt>goto</tt></h3>
+<p>A goto statement branches to an arbitrary label in the current
+block of code. You must declare a label before you can use it:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  x: integer;
+
+label
+  loop;
+
+begin
+  x := 1;
+
+ loop:
+  writeln(x);
+  x := x + 1;
+  if x &lt;= 5 then goto loop;
+end.</pre><h3 class="western">
+exit</h3>
+<p>The <code>exit</code> statement immediately exits the nearest
+enclosing procedure or function:</p>
+<pre class="western" style="margin-left: 0.49in; margin-bottom: 0.2in">exit;</pre><p>
+If there is no enclosing procedure or function, the program exits.</p>
+<p>In a function, exit can take a parameter indicating a value to be
+returned from the function:</p>
+<pre class="western" style="margin-left: 0.49in; margin-bottom: 0.2in">exit(4);</pre><h2 class="western">
+looping statements</h2>
+<h3 class="western">for...to</h3>
+<p>A <code>for…to</code> statement loops over successive values of
+any ordinal type. It looks like this:</p>
+<pre class="western" style="margin-left: 0.49in">for i := 1 to n do
+  begin
+    writeln(i);
+    writeln(i * 2);
+  end;</pre><p>
+You must declare the loop variable (<code>i </code>in this case) in a
+<code>var</code> section before you can use it in a <code>for</code>
+statement.</p>
+<p>If there is only one statement in the loop body, you can omit the
+<code>begin </code>and <code>end</code>.</p>
+<p>To loop through decreasing values, use <code>downto</code> rather
+than <code>to</code>:</p>
+<pre class="western" style="margin-left: 0.49in">for i := 10 downto 1 do
+  writeln(i);
+writeln('liftoff');</pre><p>
+The value of the loop variable is undefined after a <code>for</code>
+loop has completed execution.</p>
+<h3 class="western">for...in</h3>
+<p>The <code>for…in</code> statement loops over successive values
+of an array:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  a: array[1..100] of integer;
+  sum: integer = 0;
+…
+for v in a do
+  sum := sum + v;</pre><p>
+The preceding <code>for</code> loop is equivalent to</p>
+<pre class="western" style="margin-left: 0.49in">for i := low(a) to high(i) do
+  sum := sum + a[i];</pre><h3 class="western">
+while</h3>
+<p>A <code>while</code> statement loops for as long as a condition is
+true. It looks like this:</p>
+<pre class="western" style="margin-left: 0.49in">while i &gt; 0 do
+  begin
+    writeln(i);
+    i := i div 2;
+  end;</pre><p>
+If there is only one statement in the loop body, you can omit the
+<code>begin </code>and <code>end</code>.</p>
+<p>If the condition in a <code>while</code> loop is false at the
+beginning, the loop body is skipped: no iterations will run.</p>
+<h3 class="western">repeat</h3>
+<p>The repeat statement loops until a condition becomes true. It
+looks like this;'</p>
+<pre class="western" style="margin-left: 0.49in">repeat
+  writeln(x);
+  x := x * 2;
+until x &gt; 100;</pre><p>
+Note that the body of a <code>repeat</code> statement is not enclosed
+in <code>begin</code> and <code>end</code>.</p>
+<p>The body of a repeat statement always executes at least once.</p>
+<h3 class="western">break</h3>
+<p>The <code>break</code> statement breaks out of the nearest
+enclosing <tt>for</tt>, <tt>while</tt>, or <tt>repeat</tt> loop.</p>
+<h3 class="western">continue</h3>
+<p>The <code>continue </code>statement continues with the next
+iteration of the nearest enclosing <tt>for</tt>, <tt>while</tt>, or
+<tt>repeat</tt> loop.</p>
+<p>If <code>continue</code> is executed during the last iteration of
+a <code>for</code> loop, the loop exits. When <code>continue</code>
+is executed in a <code>while</code> or <code>repeat</code> loop, the
+loop condition is tested before beginning a new iteration; if it is
+false (for <code>while</code>) or true (for <code>repeat</code>) then
+the loop exits.</p>
+<h2 class="western">type declarations</h2>
+<p>A type declaration introduces a new name for a type:</p>
+<pre class="western" style="margin-left: 0.49in">type
+  int = integer;
+  array3 = array[1..3] of integer;
+
+var
+  i: int;
+  a: array3;</pre><h2 class="western">
+constant declarations</h2>
+<p style="font-variant: normal; font-style: normal">A constant
+declaration introduces a name for a constant:</p>
+<pre class="western" style="margin-left: 0.49in">const
+  Seconds = 60;</pre><p>
+The expression in a constant declaration is evaluated at compile
+time. It may contain other constants, operators, and calls to
+functions in the <code>system</code> unit, but no variables:</p>
+<pre class="western" style="margin-left: 0.49in">const
+  Microseconds = Seconds * 1000 * 1000;
+  Three = trunc(pi);</pre><h2 class="western">
+variable declarations</h2>
+<p>A variable declaration introduces a variable and gives it a type:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  x: integer;
+  r: real;</pre><p>
+You may declare several variables of the same type together:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  s, t, u: string;</pre><p>
+When declaring a single variable, you may give it an intial value:</p>
+<pre class="western" style="margin-left: 0.49in">var
+  a: integer = 4;</pre><h2 class="western">
+function/procedure declarations</h2>
+<p>A function declaration introduces a function:</p>
+<pre class="western" style="margin-left: 0.49in">function add(x: integer; y: integer): integer;
+  begin
+    add := x + y;
+  end;</pre><p>
+A procedure declaration is similar, but procedures return no value:</p>
+<pre class="western" style="margin-left: 0.49in">procedure yell(s: string, n: integer);
+  var
+    i: integer;
+  begin
+    for i := 1 to n do
+      writeln(s);
+  end;</pre><p>
+Variables declared inside a function or procedure are known as local
+variables, and are not visible outside it.</p>
+<p>A function or procedure may read and write variables declared
+outside it, as long as they appear before the declaration of the
+function or procedure itself.</p>
+<p>By default arguments are passed <b>by value</b>, which means that
+the receiving function gets its own local copy of each argument and
+cannot modify a variable passed to the function. There are several
+keywords you can use to change Pascal’s argument-passing behavior.</p>
+<h3 class="western">var parameters</h3>
+<p>If you precede an parameter declaration with <code>var</code>, the
+caller’s variable will be passed <b>by reference</b>, so the caller
+can modify it:</p>
+<pre class="western" style="margin-left: 0.49in">procedure increment(var x: integer; by: integer);
+
+  begin
+    x := x + by;
+  end;
+…
+var
+  n: integer = 4;
+begin
+  increment(n, 2);   // now n is 6</pre><h3 class="western">
+out parameters</h3>
+<p>A parameter preceded with <code>out</code> lets a function return
+a value by setting a variable that is passed by reference. This is
+similar to <code>var</code>, but does not let the function receive a
+value from the caller. For example:</p>
+<pre class="western" style="margin-left: 0.79in">// Return the first and last character of a string
+function firstAndList(s: string; out first: char; out last: char);
+begin
+  first := s[1];
+  last := s[length(s)];
+end;</pre><p>
+<code>out</code> parameters are available only if you enable Delphi
+mode.</p>
+<h3 class="western">const parameters</h3>
+<p>A function cannot modify a parameter that is preceded with <code>const</code>.
+This means that Pascal does not need to make a local copy of the
+value that is passed. In particular, this makes passing an array much
+more efficient, since internally it can be passed by reference. 
+</p>
+<p>For example:</p>
+<pre class="western" style="margin-left: 0.79in">function sum(const a: array of integer): integer;
+
+var
+  s: integer = 0;
+  v: integer;
+begin
+  for v in a do
+    s := s + v;
+  sum := v;
+end;</pre><h2 class="western">
+programs</h2>
+<p>A top-level program has this structure:</p>
+<pre class="western" style="margin-left: 0.49in">program add;
+
+uses
+  crt;
+
+type
+  int = integer;
+
+const
+  Factor = 20;
+
+var
+  x, y: int;
+
+function foo(a: integer, b: integer): boolean;
+  ...
+
+begin
+  clrScr;
+  readln(x, y);
+  writeln(x + y);
+end.</pre><p>
+The <code>program</code> element at the very beginning is optional,
+as are all declaration sections (<code>uses</code>, <code>type</code>,
+<code>const</code>, <code>var,</code> <code>function</code>).
+Declarations may appear in any order.</p>
+<p>The <code>begin</code> and <code>end</code> are required, as is
+the period at the end.</p>
+<h2 class="western">units</h2>
+<p>Free Pascal lets you divide code into modules using <b>units</b>.
+A unit is defined in a Pascal source file that looks like this:</p>
+<pre class="western">unit myUnit;
+
+interface
+
+type
+  abc = string;
+
+procedure honk(s: abc);
+function add(i, j: integer): integer;
+
+implementation
+
+procedure honk(s: abc);
+begin
+  writeln('honk: ', s);
+end;
+
+function add(i, j: integer): integer;
+begin
+  add := i + j;
+end;
+
+end.</pre><p>
+The <code>unit</code> declaration at the top of the file specifies
+the name of the unit. It must be the same as the source file name
+without the '.pas' extension.</p>
+<p>The <code>interface</code> section declares types, procedures and
+functions that will be exported by the unit. Procedures and functions
+declared in this section must be implemented in the following
+<code>implementation</code> section.</p>
+<p>A unit ends with the <code>end</code> keyword followed by a
+period.</p>
+<p>A program that uses a unit may call only the procedures and
+functions declared in the <code>interface</code> section. Any other
+procedures and functions in the <code>implementation</code> section
+are private to the unit.</p>
+</body>
+</html>
